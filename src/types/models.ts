@@ -7,4 +7,5 @@ export interface User {
     role: UserRole;
     phone?: string;
     isActive?: boolean;
+    photoURL?: string;
 }

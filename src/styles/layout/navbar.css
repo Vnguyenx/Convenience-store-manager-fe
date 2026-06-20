@@ -1,0 +1,155 @@
+/* ============================================================
+   NAVBAR.CSS — Top navigation bar
+   Theme: dark navy, matching login.css
+   ============================================================ */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--sp-6);
+    height: 56px;
+    background: #1e2d3d;
+    border-bottom: 1px solid #2b3f55;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar__title {
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semi);
+    color: #c8d8e8;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ── Avatar button ── */
+.navbar__user-area {
+    position: relative;
+}
+
+.navbar__avatar-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-md);
+    transition: background var(--transition);
+}
+.navbar__avatar-btn:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+.navbar__avatar-img {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 1.5px solid #3D6B55;
+}
+
+.navbar__avatar-placeholder {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: var(--fw-bold);
+    flex-shrink: 0;
+    border: 1.5px solid #2F5342;
+}
+
+.navbar__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.25;
+}
+.navbar__user-name {
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semi);
+    color: #dceaf8;
+}
+.navbar__user-role {
+    font-size: var(--text-xs);
+    color: #7a92a8;
+}
+
+.navbar__chevron {
+    stroke: #7a92a8;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform var(--transition);
+    flex-shrink: 0;
+}
+.navbar__chevron.open {
+    transform: rotate(180deg);
+}
+
+/* ── Dropdown ── */
+.navbar__dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    background: #1e2d3d;
+    border: 1px solid #2b3f55;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    min-width: 190px;
+    padding: var(--sp-2);
+    z-index: 200;
+}
+
+.navbar__dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: var(--sp-2) var(--sp-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: #c8d8e8;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+    line-height: 1.5;
+}
+.navbar__dropdown-item svg {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+    opacity: 0.75;
+}
+.navbar__dropdown-item:hover {
+    background: rgba(255,255,255,0.06);
+    color: #dceaf8;
+}
+
+.navbar__dropdown-item--danger {
+    color: #f0a8a0;
+}
+.navbar__dropdown-item--danger:hover {
+    background: rgba(192,57,43,0.18);
+    color: #f5c0b8;
+}
+
+.navbar__dropdown-divider {
+    height: 1px;
+    background: #2b3f55;
+    margin: var(--sp-2) 0;
+}

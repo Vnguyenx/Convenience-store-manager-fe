@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../../services/authService';
-import { isValidEmail, getPasswordError } from '../../utils/validators';
+import { isValidEmail, getPasswordError, getConfirmPasswordError } from '../../utils/validators';
 import { useAppDispatch } from '../../store/hooks';
 import { loginStart, loginSuccess, loginFailure } from '../../store/authSlice';
 import '../../styles/auth/login.css';
@@ -9,9 +9,10 @@ import '../../styles/base/base.css';
 
 
 function RegisterPage() {
-    const [form, setForm] = useState({ email: '', password: '', fullName: '', phone: '' });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState({ email: '', password: '', confirmPassword: '', fullName: '', phone: '' });
+
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -25,6 +26,8 @@ function RegisterPage() {
         const pwError = getPasswordError(form.password);
         if (pwError) return setError(pwError);
         if (!/^0\d{9}$/.test(form.phone)) return setError('Số điện thoại không hợp lệ (10 số, bắt đầu bằng 0)');
+        const confirmError = getConfirmPasswordError(form.password, form.confirmPassword);
+        if (confirmError) return setError(confirmError);
 
         setLoading(true);
         dispatch(loginStart());
@@ -68,7 +71,7 @@ function RegisterPage() {
                             id="reg-name"
                             placeholder="Nguyễn Văn A"
                             value={form.fullName}
-                            onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                            onChange={(e) => setForm({...form, fullName: e.target.value})}
                             required
                         />
                     </div>
@@ -80,7 +83,7 @@ function RegisterPage() {
                             type="email"
                             placeholder="example@email.com"
                             value={form.email}
-                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            onChange={(e) => setForm({...form, email: e.target.value})}
                             required
                         />
                     </div>
@@ -92,7 +95,7 @@ function RegisterPage() {
                             type="tel"
                             placeholder="0901234567"
                             value={form.phone}
-                            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                            onChange={(e) => setForm({...form, phone: e.target.value})}
                             required
                         />
                     </div>
@@ -104,7 +107,19 @@ function RegisterPage() {
                             type="password"
                             placeholder="Tối thiểu 8 ký tự, gồm chữ và số"
                             value={form.password}
-                            onChange={(e) => setForm({ ...form, password: e.target.value })}
+                            onChange={(e) => setForm({...form, password: e.target.value})}
+                            required
+                        />
+                    </div>
+
+                    <div className="auth-field">
+                        <label htmlFor="reg-confirm-password">Nhập lại mật khẩu</label>
+                        <input
+                            id="reg-confirm-password"
+                            type="password"
+                            placeholder="Nhập lại mật khẩu"
+                            value={form.confirmPassword}
+                            onChange={(e) => setForm({...form, confirmPassword: e.target.value})}
                             required
                         />
                     </div>

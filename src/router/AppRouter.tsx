@@ -4,6 +4,7 @@ import RegisterPage from '../pages/auth/RegisterPage';
 import ProtectedRoute from '../pages/auth/ProtectedRoute';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import POSPage from '../pages/staff/POSPage';
+import ProfilePage from '../pages/ProfilePage';
 
 function AppRouter() {
     return (
@@ -28,6 +29,15 @@ function AppRouter() {
                     element={
                         <ProtectedRoute allowedRoles={['staff', 'admin']}>
                             <POSPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/profile"
+                    element={
+                        <ProtectedRoute allowedRoles={['admin', 'staff']}>
+                            <ProfilePage />
                         </ProtectedRoute>
                     }
                 />
