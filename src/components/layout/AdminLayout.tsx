@@ -1,14 +1,20 @@
 import { ReactNode } from 'react';
-// import AdminSidebar from './AdminSidebar';
-import Navbar from './Navbar';
+import AdminSidebar from './AdminSidebar';
+import AppBar from './AppBar';
 
-function AdminLayout({ children }: { children: ReactNode }) {
+interface AdminLayoutProps {
+    children: ReactNode;
+    title?: string;
+    subtitle?: string;
+}
+
+function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
     return (
-        <div className="admin-layout">
-            {/*<AdminSidebar />*/}
-            <div className="admin-layout__main">
-                <Navbar />
-                <div className="admin-layout__content">{children}</div>
+        <div className="app-shell">
+            <AdminSidebar />
+            <div className="main-area">
+                <AppBar variant="app" title={title} subtitle={subtitle} showNotification />
+                <main className="main-content">{children}</main>
             </div>
         </div>
     );

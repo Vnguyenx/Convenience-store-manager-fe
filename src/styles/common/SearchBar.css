@@ -1,0 +1,52 @@
+/* src/components/common/SearchBar.css */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #162130;
+    border: 1.5px solid #2b3f55;
+    border-radius: var(--radius-md);
+    padding: 0 var(--sp-3);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.search-bar:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(61, 107, 85, 0.25);
+}
+
+.search-bar__icon {
+    flex-shrink: 0;
+    color: white;
+    margin-right: var(--sp-2);
+}
+
+.search-bar__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: var(--sp-2) 0;
+    color: #dceaf8;
+    font-size: var(--text-sm);
+    font-family: inherit;
+    min-width: 0;
+}
+
+.search-bar__input::placeholder {
+    color: white;
+}
+
+.search-bar__clear {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #5a7a92;
+    cursor: pointer;
+    padding: 0 var(--sp-1);
+    font-size: var(--text-sm);
+    transition: color var(--transition);
+}
+
+.search-bar__clear:hover {
+    color: #dceaf8;
+}

@@ -4,7 +4,8 @@ import { User } from '../types/models';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-const getToken = async (): Promise<string> => {
+// src/services/authService.ts
+export const getToken = async (): Promise<string> => {
     const currentUser = auth.currentUser;
     if (!currentUser) throw new Error('Chưa đăng nhập');
     return currentUser.getIdToken();

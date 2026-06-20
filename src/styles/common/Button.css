@@ -1,0 +1,81 @@
+/* ============================================================
+   Button.css — Shared button styles
+   ============================================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    padding: var(--sp-3) var(--sp-6);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semi);
+    cursor: pointer;
+    transition: background var(--transition), opacity var(--transition), box-shadow var(--transition);
+    white-space: nowrap;
+    line-height: 1.4;
+    font-family: inherit;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-text-on-primary);
+}
+.btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+    background: var(--color-surface-2);
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
+}
+.btn-secondary:hover:not(:disabled) {
+    background: var(--color-border);
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+    background: #a93226;
+}
+
+.btn-success {
+    background: var(--color-success);
+    color: #fff;
+}
+.btn-success:hover:not(:disabled) {
+    background: #1f4f3a;
+}
+
+.btn-warning {
+    background: var(--color-warning);
+    color: #fff;
+}
+.btn-warning:hover:not(:disabled) {
+    background: #9a6518;
+}
+
+.btn-sm {
+    padding: var(--sp-2) var(--sp-4);
+    font-size: var(--text-xs);
+}
+
+.btn-lg {
+    padding: var(--sp-4) var(--sp-8);
+    font-size: var(--text-base);
+}
+
+.btn-full {
+    width: 100%;
+}

@@ -1,11 +1,10 @@
-// src/pages/staff/POSPage.tsx
+// src/pages/staff/MyShiftPage.tsx
 import React from 'react';
 import AppBar from '../../components/layout/AppBar';
-import POSLayout from '../../components/pos/POSLayout';
+import Panel from '../../components/common/Panel';
 import StaffTabs from '../../components/staff/StaffTabs';
-import '../../styles/pos/pos.css';
 
-const POSPage: React.FC = () => {
+const MyShiftPage: React.FC = () => {
     const titleNode = (
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--sp-6)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -19,7 +18,7 @@ const POSPage: React.FC = () => {
                     CS Manager
                 </strong>
             </div>
-            <StaffTabs activeTab="pos" />
+            <StaffTabs activeTab="shift" />
         </div>
     );
 
@@ -27,10 +26,17 @@ const POSPage: React.FC = () => {
         <div className="app-shell">
             <div className="main-area" style={{ width: '100%' }}>
                 <AppBar variant="app" title={titleNode} showNotification />
-                <POSLayout />
+                <main className="main-content" style={{ padding: 'var(--sp-6)' }}>
+                    <Panel>
+                        <div style={{ padding: 'var(--sp-4)', textAlign: 'center' }}>
+                            <h3>Ca làm của tôi</h3>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Chức năng đang phát triển...</p>
+                        </div>
+                    </Panel>
+                </main>
             </div>
         </div>
     );
 };
 
-export default POSPage;
+export default MyShiftPage;

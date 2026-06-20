@@ -5,6 +5,10 @@ import ProtectedRoute from '../pages/auth/ProtectedRoute';
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import POSPage from '../pages/staff/POSPage';
 import ProfilePage from '../pages/ProfilePage';
+import AdminProductsPage from '../pages/admin/AdminProductsPage';
+import ProductLookupPage from '../pages/staff/ProductLookupPage';
+import MyShiftPage from '../pages/staff/MyShiftPage';
+
 
 function AppRouter() {
     return (
@@ -43,6 +47,34 @@ function AppRouter() {
                 />
 
                 <Route path="*" element={<Navigate to="/login" replace />} />
+
+                <Route
+                    path="/admin/products"
+                    element={
+                        <ProtectedRoute allowedRoles={['admin']}>
+                            <AdminProductsPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/products/lookup"
+                    element={
+                        <ProtectedRoute allowedRoles={['staff', 'admin']}>
+                            <ProductLookupPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/staff/shift"
+                    element={
+                        <ProtectedRoute allowedRoles={['staff', 'admin']}>
+                            <MyShiftPage />
+                        </ProtectedRoute>
+                    }
+                />
+
             </Routes>
         </BrowserRouter>
     );
