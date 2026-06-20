@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { fetchCurrentUser } from '../services/authService';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { loginSuccess, loginFailure, setLoading } from '../store/authSlice';
 
 export const useAuth = () => {
     const dispatch = useAppDispatch();
+    const currentUser = useAppSelector(state => state.auth.user);
+    const loading = useAppSelector(state => state.auth.loading);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -25,4 +27,6 @@ export const useAuth = () => {
 
         return () => unsubscribe();
     }, [dispatch]);
+
+    return { currentUser, loading };
 };
