@@ -35,6 +35,7 @@ const POSProductArea: React.FC<POSProductAreaProps> = ({ products, loading, onAd
                 (p as any).code?.toLowerCase().includes(kw)
             );
         }
+        list = list.filter(p => (p.stockQuantity ?? 0) > 0);
         return list;
     }, [products, activeCategory, search]);
 

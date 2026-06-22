@@ -1,0 +1,139 @@
+/* src/styles/pages/HistoryStaffPage.css */
+
+.history-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.history-toolbar__search {
+    flex: 1 1 260px;
+    min-width: 220px;
+}
+
+.history-toolbar__select {
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--color-border, #dcdfe4);
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 14px;
+    color: var(--color-text, #1f2533);
+    cursor: pointer;
+}
+
+.history-toolbar__select:focus {
+    outline: none;
+    border-color: var(--color-primary, #4d7cfe);
+    box-shadow: 0 0 0 2px rgba(77, 124, 254, 0.15);
+}
+
+/* Table states */
+.history-table__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.history-table__error {
+    color: #c0392b;
+    padding: 12px 0;
+}
+
+.history-table__loading {
+    padding: 24px 0;
+    text-align: center;
+    color: var(--color-text-muted, #6b7280);
+}
+
+.history-table__empty {
+    text-align: center;
+    padding: 24px 0;
+    color: #9aa1ad;
+}
+
+.history-table__pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Status badge */
+.history-status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.history-status-badge--completed {
+    background: #e6f7ee;
+    color: #1a8754;
+}
+
+.history-status-badge--cancelled {
+    background: #fdeaea;
+    color: #c0392b;
+}
+
+/* Order detail modal (dùng chung selector với phần admin transactions) */
+.order-detail__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.order-detail__cancel-reason {
+    grid-column: 1 / -1;
+    color: #c0392b;
+}
+
+.order-detail__items {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.order-detail__totals {
+    text-align: right;
+}
+
+.order-detail__grand-total {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 4px;
+}
+
+.order-detail__note {
+    margin-top: 12px;
+}
+
+/* Cancel order modal */
+.cancel-order-modal__message {
+    margin-bottom: 12px;
+}
+
+.cancel-order-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .order-detail__info {
+        grid-template-columns: 1fr;
+    }
+
+    .history-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .history-toolbar__select {
+        width: 100%;
+    }
+}

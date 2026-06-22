@@ -129,7 +129,7 @@ const ProductLookupPage: React.FC = () => {
     return (
         <div className="app-shell">
             <div className="main-area" style={{ width: '100%' }}>
-                <AppBar variant="app" title={titleNode} showNotification />
+                <AppBar variant="app" title={titleNode}/>
                 <main className="main-content" style={{ padding: 'var(--sp-6)', width: '1200px', margin: '0 auto'  }}>
                     <Panel>
                         <div className="product-lookup__toolbar">

@@ -1,19 +1,19 @@
 // src/components/staff/StaffTabs.tsx
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface StaffTabsProps {
-    activeTab: 'pos' | 'lookup' | 'shift';
+    activeTab: 'pos' | 'lookup' | 'shift' | 'history';
 }
 
 const StaffTabs: React.FC<StaffTabsProps> = ({ activeTab }) => {
     const navigate = useNavigate();
-    const location = useLocation();
 
     const tabs = [
         { id: 'pos', label: 'Bán hàng', path: '/pos' },
         { id: 'lookup', label: 'Tra cứu sản phẩm', path: '/products/lookup' },
         { id: 'shift', label: 'Ca làm của tôi', path: '/staff/shift' },
+        { id: 'history', label: 'Lịch sử giao dịch', path: '/staff/history' },
     ];
 
     return (

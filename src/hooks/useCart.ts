@@ -1,5 +1,8 @@
 // src/hooks/useCart.ts
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { fetchCoupons } from '../store/couponSlice';
+import { Coupon } from '../types/coupon';
 
 export interface CartItem {
     id: string;
@@ -11,22 +14,23 @@ export interface CartItem {
     stockQuantity: number;
 }
 
-export interface CouponResult {
-    code: string;
-    type: 'percent' | 'fixed';
-    value: number;           // % hoặc số tiền cố định
-}
-
-// ---- mock coupon DB (sau thay bằng Firestore lookup) ----
-const COUPONS: Record<string, CouponResult> = {
-    SALE10: { code: 'SALE10', type: 'percent', value: 10 },
-    GIAM5K: { code: 'GIAM5K', type: 'fixed', value: 5000 },
-};
+// Giữ tên CouponResult để CartPanel.tsx không cần sửa import/type
+export type CouponResult = Coupon;
 
 export function useCart() {
+    const dispatch = useAppDispatch();
+    // Danh sách coupon đang active, fetch từ Firestore qua couponSlice
+    const coupons = useAppSelector((state) => state.coupon.coupons);
+
+    useEffect(() => {
+        dispatch(fetchCoupons());
+    }, [dispatch]);
+
     const [items, setItems] = useState<CartItem[]>([]);
-    const [coupon, setCoupon] = useState<CouponResult | null>(null);
+    const [coupon, setCoupon] = useState<Coupon | null>(null);
     const [couponError, setCouponError] = useState<string>('');
+
+    // ----- Các hàm dưới đây giữ nguyên logic cũ, không đổi -----
 
     // Thêm sản phẩm (nếu đã có thì tăng qty)
     const addItem = useCallback((product: {
@@ -75,24 +79,7 @@ export function useCart() {
         setCouponError('');
     }, []);
 
-    // Áp mã giảm giá
-    const applyCoupon = useCallback((code: string) => {
-        const result = COUPONS[code.toUpperCase().trim()];
-        if (result) {
-            setCoupon(result);
-            setCouponError('');
-        } else {
-            setCoupon(null);
-            setCouponError('Mã giảm giá không hợp lệ');
-        }
-    }, []);
-
-    const removeCoupon = useCallback(() => {
-        setCoupon(null);
-        setCouponError('');
-    }, []);
-
-    // Tính toán
+    // Tính toán (không đổi)
     const subtotal = useMemo(() =>
             items.reduce((sum, i) => sum + (i.discountPrice ?? i.unitPrice) * i.quantity, 0),
         [items]
@@ -104,10 +91,75 @@ export function useCart() {
         [items]
     );
 
+    // ----- Phần coupon: thay mock bằng validate điều kiện thật -----
+
+    const applyCoupon = useCallback((codeInput: string) => {
+        const code = codeInput.toUpperCase().trim();
+        const found = coupons.find(c => c.code.toUpperCase() === code);
+
+        if (!found) {
+            setCoupon(null);
+            setCouponError('Mã giảm giá không tồn tại');
+            return;
+        }
+
+        if (!found.isActive) {
+            setCoupon(null);
+            setCouponError('Mã giảm giá hiện đã bị khoá');
+            return;
+        }
+
+        const now = new Date();
+
+        if (found.startDate && now < new Date(found.startDate)) {
+            setCoupon(null);
+            setCouponError('Mã giảm giá chưa đến thời gian áp dụng');
+            return;
+        }
+
+        if (found.expiryDate && now > new Date(found.expiryDate)) {
+            setCoupon(null);
+            setCouponError('Mã giảm giá đã hết hạn');
+            return;
+        }
+
+        if (found.minOrderValue && subtotal < found.minOrderValue) {
+            setCoupon(null);
+            setCouponError(
+                `Đơn hàng cần tối thiểu ${found.minOrderValue.toLocaleString('vi-VN')}đ để áp dụng mã này`
+            );
+            return;
+        }
+
+        if (found.usageLimit != null && found.usedCount >= found.usageLimit) {
+            setCoupon(null);
+            setCouponError('Mã giảm giá đã hết lượt sử dụng');
+            return;
+        }
+
+        setCoupon(found);
+        setCouponError('');
+    }, [coupons, subtotal]);
+
+    const removeCoupon = useCallback(() => {
+        setCoupon(null);
+        setCouponError('');
+    }, []);
+
     const couponDiscount = useMemo(() => {
         if (!coupon) return 0;
-        if (coupon.type === 'percent') return Math.round(subtotal * coupon.value / 100);
-        return Math.min(coupon.value, subtotal);
+
+        let discount = 0;
+        if (coupon.type === 'percent') {
+            discount = Math.round(subtotal * coupon.value / 100);
+            if (coupon.maxDiscount != null) {
+                discount = Math.min(discount, coupon.maxDiscount); // giới hạn giảm tối đa
+            }
+        } else {
+            discount = coupon.value;
+        }
+
+        return Math.min(discount, subtotal); // không cho giảm vượt quá tổng tiền
     }, [coupon, subtotal]);
 
     const total = Math.max(0, subtotal - couponDiscount);

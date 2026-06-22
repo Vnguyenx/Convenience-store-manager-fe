@@ -6,6 +6,7 @@ import { Product } from '../../types/models';
 import Modal from '../common/Modal';
 import Input from '../common/Input';
 import Button from '../common/Button';
+import { CATEGORIES, UNITS, isCategoryUnitMatch } from '../../utils/productOptions';
 import '../../styles/products/ProductFormModal.css';
 
 interface ProductFormModalProps {
@@ -86,6 +87,14 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
         e.preventDefault();
         if (!validate()) return;
 
+        // Soft warning: category/unit không khớp -> hỏi xác nhận, không chặn cứng
+        if (!isCategoryUnitMatch(formData.category, formData.unit)) {
+            const confirmed = window.confirm(
+                `Đơn vị "${formData.unit}" có vẻ không phù hợp với danh mục "${formData.category}".\nBạn có chắc muốn lưu không?`
+            );
+            if (!confirmed) return;
+        }
+
         setSubmitting(true);
         try {
             const payload = {
@@ -130,12 +139,34 @@ const ProductFormModal: React.FC<ProductFormModalProps> = ({
                 <div className="form-row">
                     <div className="form-group">
                         <label>Danh mục *</label>
-                        <Input name="category" value={formData.category} onChange={handleChange} />
+                        <Input
+                            name="category"
+                            value={formData.category}
+                            onChange={handleChange}
+                            list="category-options"
+                            placeholder="Chọn hoặc nhập danh mục mới"
+                        />
+                        <datalist id="category-options">
+                            {CATEGORIES.map((c) => (
+                                <option key={c} value={c} />
+                            ))}
+                        </datalist>
                         {errors.category && <span className="error">{errors.category}</span>}
                     </div>
                     <div className="form-group">
                         <label>Đơn vị tính *</label>
-                        <Input name="unit" value={formData.unit} onChange={handleChange} />
+                        <Input
+                            name="unit"
+                            value={formData.unit}
+                            onChange={handleChange}
+                            list="unit-options"
+                            placeholder="Chọn hoặc nhập đơn vị mới"
+                        />
+                        <datalist id="unit-options">
+                            {UNITS.map((u) => (
+                                <option key={u} value={u} />
+                            ))}
+                        </datalist>
                         {errors.unit && <span className="error">{errors.unit}</span>}
                     </div>
                 </div>

@@ -4,6 +4,17 @@ import Panel from '../../components/common/Panel';
 import DataTable from '../../components/common/DataTable';
 import '../../styles/admin/AdminDashboard.css';
 
+
+function getCurrentDateString() {
+    const now = new Date();
+    const days = ['Chủ nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+    const dayOfWeek = days[now.getDay()];
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    return `${dayOfWeek}, ${day}/${month}/${year}`;
+}
+
 const kpiData = [
     { label: 'Doanh thu hôm nay', value: '12.480.000đ', delta: '▲ 8.2% so với hôm qua', deltaType: 'up' as const },
     { label: 'Đơn hàng', value: '86', delta: '▲ 5 đơn', deltaType: 'up' as const },
@@ -26,8 +37,11 @@ const stockWarnings = [
 ];
 
 function AdminDashboard() {
+
+    const subtitle = getCurrentDateString();
+
     return (
-        <AdminLayout title="Tổng quan" subtitle="Thứ Bảy, 20/06/2026">
+        <AdminLayout title="Tổng quan" subtitle={subtitle}>
             <KPIGrid items={kpiData} />
             <div className="two-col">
                 <Panel title="Sản phẩm bán chạy hôm nay">

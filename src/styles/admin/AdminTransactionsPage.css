@@ -1,0 +1,544 @@
+/* =====================================================
+   AdminTransactionsPage.css
+   Theme: dark navy #1e2d3d / #162130 / #2b3f55
+   Primary green: #3D6B55
+   Đồng bộ với adminCoupons.css
+   ===================================================== */
+
+/* ---------- Page wrapper ---------- */
+.admin-transactions-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px 32px;
+    min-height: 100%;
+    color: #e2e8f0;
+}
+
+/* ---------- KPI section ---------- */
+.transactions-kpi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+}
+
+.transactions-kpi .stat-card {
+    background: #1e2d3d;
+    border: 1px solid #2b3f55;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: border-color 0.2s;
+}
+
+.transactions-kpi .stat-card:hover { border-color: #3D6B55; }
+
+.transactions-kpi .stat-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.transactions-kpi .stat-card__icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.transactions-kpi .stat-card__icon--blue   { background: rgba(59,130,246,.15);  color: #60a5fa; }
+.transactions-kpi .stat-card__icon--green  { background: rgba(61,107,85,.2);    color: #4ade80; }
+.transactions-kpi .stat-card__icon--amber  { background: rgba(245,158,11,.15);  color: #fbbf24; }
+.transactions-kpi .stat-card__icon--red    { background: rgba(239,68,68,.15);   color: #f87171; }
+
+.transactions-kpi .stat-card__value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f0f4f8;
+    line-height: 1;
+}
+
+.transactions-kpi .stat-card__label {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 3px;
+}
+
+/* ---------- Panel (table container) ---------- */
+.transactions-panel {
+    background: #1e2d3d;
+    border: 1px solid #2b3f55;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.transactions-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #2b3f55;
+}
+
+.transactions-panel__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f0f4f8;
+    margin: 0;
+}
+
+.transactions-panel__body {
+    padding: 16px 20px 20px;
+}
+
+/* ---------- Toolbar ---------- */
+.transactions-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.transactions-toolbar__search {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 360px;
+}
+
+.transactions-toolbar__search svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: #64748b;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
+.transactions-toolbar__search input {
+    width: 100%;
+    padding: 9px 12px 9px 38px;
+    background: #162130;
+    border: 1px solid #2b3f55;
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.transactions-toolbar__search input::placeholder { color: #475569; }
+.transactions-toolbar__search input:focus { border-color: #3D6B55; }
+
+.transactions-toolbar__select {
+    padding: 9px 14px;
+    background: #162130;
+    border: 1px solid #2b3f55;
+    border-radius: 8px;
+    color: #94a3b8;
+    font-size: 0.875rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    height: auto;
+}
+
+.transactions-toolbar__select:focus { border-color: #3D6B55; }
+.transactions-toolbar__select option { background: #1e2d3d; }
+
+/* Reload button (re-uses .btn from coupon) */
+.transactions-toolbar .btn {
+    flex-shrink: 0;
+}
+
+/* ---------- Data table ---------- */
+.transactions-table-wrap {
+    overflow-x: auto;
+}
+
+.transactions-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.transactions-data-table thead {
+    background: #162130;
+}
+
+.transactions-data-table thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 1px solid #2b3f55;
+    white-space: nowrap;
+}
+
+.transactions-data-table tbody tr {
+    border-bottom: 1px solid rgba(43,63,85,.6);
+    transition: background 0.15s;
+}
+
+.transactions-data-table tbody tr:last-child { border-bottom: none; }
+.transactions-data-table tbody tr:hover { background: rgba(43,63,85,.4); }
+
+.transactions-data-table td {
+    padding: 12px 14px;
+    color: #cbd5e1;
+    vertical-align: middle;
+}
+
+/* order code */
+.order-code {
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(61,107,85,.15);
+    color: #4ade80;
+    padding: 3px 9px;
+    border-radius: 5px;
+    letter-spacing: 0.04em;
+    display: inline-block;
+}
+
+/* datetime */
+.order-datetime {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+/* cashier */
+.order-cashier {
+    color: #94a3b8;
+    font-size: 0.875rem;
+}
+
+/* amount */
+.order-amount {
+    font-weight: 600;
+    color: #f0f4f8;
+}
+
+/* ---------- Status badge ---------- */
+.transactions-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.transactions-status-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.8;
+}
+
+.transactions-status-badge--completed { background: rgba(74,222,128,.12); color: #4ade80; }
+.transactions-status-badge--cancelled  { background: rgba(248,113,113,.12); color: #f87171; }
+.transactions-status-badge--pending    { background: rgba(251,191,36,.12);  color: #fbbf24; }
+
+/* ---------- Table action buttons ---------- */
+.transactions-table__actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Reuse action-btn pattern from coupon */
+.transactions-table__actions .action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: #64748b;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.transactions-table__actions .action-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.transactions-table__actions .action-btn:hover               { background: #2b3f55; color: #e2e8f0; }
+.transactions-table__actions .action-btn--danger:hover        { background: rgba(239,68,68,.15); color: #f87171; }
+
+/* ---------- Table states ---------- */
+.transactions-table__loading,
+.transactions-table__empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: #475569;
+    font-size: 0.875rem;
+}
+
+.transactions-table__error {
+    background: rgba(239,68,68,.1);
+    border: 1px solid rgba(239,68,68,.25);
+    border-radius: 8px;
+    color: #f87171;
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+}
+
+/* ---------- Pagination ---------- */
+.transactions-table__pagination {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+}
+
+.pagination-btn {
+    background: #162130;
+    border: 1px solid #2b3f55;
+    color: #94a3b8;
+    border-radius: 7px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    min-width: 34px;
+    text-align: center;
+}
+
+.pagination-btn:hover:not(:disabled)   { background: #2b3f55; color: #e2e8f0; }
+.pagination-btn:disabled               { opacity: 0.4; cursor: not-allowed; }
+.pagination-btn--active                { background: #3D6B55; border-color: #3D6B55; color: #fff; }
+
+.pagination-info {
+    font-size: 0.8rem;
+    color: #64748b;
+    padding: 0 4px;
+}
+
+/* ---------- Modals ---------- */
+/* re-uses .modal-backdrop / .modal / .modal__* từ adminCoupons.css,
+   chỉ cần define các class riêng của order-detail và cancel-modal */
+
+/* --- Order detail modal --- */
+.order-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.order-detail__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    background: #162130;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 0.875rem;
+}
+
+.order-detail__info > div {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.order-detail__info strong {
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.order-detail__cancel-reason {
+    grid-column: 1 / -1;
+    color: #f87171;
+}
+
+/* items table */
+.order-detail__items {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.order-detail__items thead th {
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 1px solid #2b3f55;
+    background: #162130;
+}
+
+.order-detail__items tbody tr {
+    border-bottom: 1px solid rgba(43,63,85,.5);
+}
+
+.order-detail__items tbody tr:last-child { border-bottom: none; }
+.order-detail__items tbody tr:hover { background: rgba(43,63,85,.3); }
+
+.order-detail__items td {
+    padding: 10px 12px;
+    color: #cbd5e1;
+    vertical-align: middle;
+}
+
+/* totals */
+.order-detail__totals {
+    background: #162130;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    font-size: 0.875rem;
+    color: #94a3b8;
+}
+
+.order-detail__grand-total {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #f0f4f8;
+    padding-top: 8px;
+    border-top: 1px solid #2b3f55;
+    width: 100%;
+    text-align: right;
+}
+
+.order-detail__note {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    background: #162130;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.order-detail__note strong { color: #cbd5e1; }
+
+/* --- Cancel order modal --- */
+.cancel-order-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cancel-order-modal__message {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cancel-order-modal__message strong { color: #f0f4f8; }
+
+.cancel-order-modal__input {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cancel-order-modal__input label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cancel-order-modal__input input {
+    padding: 9px 12px;
+    background: #162130;
+    border: 1px solid #2b3f55;
+    border-radius: 8px;
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+}
+
+.cancel-order-modal__input input::placeholder { color: #475569; }
+.cancel-order-modal__input input:focus { border-color: #3D6B55; }
+.cancel-order-modal__input input.has-error { border-color: #f87171; }
+
+.cancel-order-modal__error {
+    font-size: 0.78rem;
+    color: #f87171;
+    margin-top: 2px;
+}
+
+.cancel-order-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .admin-transactions-page {
+        padding: 16px;
+    }
+
+    .order-detail__info {
+        grid-template-columns: 1fr;
+    }
+
+    .transactions-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .transactions-toolbar__search {
+        max-width: 100%;
+    }
+
+    .transactions-toolbar__select {
+        width: 100%;
+    }
+
+    .transactions-kpi {
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -103,24 +103,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
                                 />
                             </div>
 
-                            <div className="payment-cash-presets">
-                                {[20000, 50000, 100000, 200000, 500000].map(amt => (
-                                    <button
-                                        key={amt}
-                                        className="btn btn-secondary btn-sm"
-                                        onClick={() => setCashInput(formatVnd(amt))}
-                                    >
-                                        {amt >= 1000 ? `${amt / 1000}K` : amt}
-                                    </button>
-                                ))}
-                                <button
-                                    className="btn btn-secondary btn-sm"
-                                    onClick={() => setCashInput(formatVnd(total))}
-                                >
-                                    Đủ tiền
-                                </button>
-                            </div>
-
                             <div className="payment-change">
                                 <span>Tiền thừa trả khách</span>
                                 <strong style={{

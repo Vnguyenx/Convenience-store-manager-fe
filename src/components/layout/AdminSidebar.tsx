@@ -1,3 +1,4 @@
+// src/components/layout/AdminSidebar.tsx  (UPDATED — /admin/promotions → CouponPage)
 import React from 'react';
 import '../../styles/layout/sidebar.css';
 import { NavLink } from 'react-router-dom';
@@ -48,7 +49,7 @@ const AdminSidebar: React.FC = () => {
                     <div className="sidebar__group-label">Khuyến mãi</div>
                     <NavLink to="/admin/promotions" className={navLinkClass}>
                         <svg viewBox="0 0 24 24"><path d="M20.59 13.41 13.42 20.59a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1"/></svg>
-                        Chương trình KM
+                        Mã giảm giá
                     </NavLink>
                 </div>
 
@@ -64,13 +65,13 @@ const AdminSidebar: React.FC = () => {
                     </NavLink>
                 </div>
 
-                <div className="sidebar__group">
-                    <div className="sidebar__group-label">Khách hàng</div>
-                    <NavLink to="/admin/customers" className={navLinkClass}>
-                        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        Khách hàng
-                    </NavLink>
-                </div>
+                {/*<div className="sidebar__group">*/}
+                {/*    <div className="sidebar__group-label">Khách hàng</div>*/}
+                {/*    <NavLink to="/admin/customers" className={navLinkClass}>*/}
+                {/*        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>*/}
+                {/*        Khách hàng*/}
+                {/*    </NavLink>*/}
+                {/*</div>*/}
 
                 <div className="sidebar__group">
                     <div className="sidebar__group-label">Doanh thu &amp; Báo cáo</div>

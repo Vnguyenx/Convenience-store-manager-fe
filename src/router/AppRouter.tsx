@@ -8,6 +8,9 @@ import ProfilePage from '../pages/ProfilePage';
 import AdminProductsPage from '../pages/admin/AdminProductsPage';
 import ProductLookupPage from '../pages/staff/ProductLookupPage';
 import MyShiftPage from '../pages/staff/MyShiftPage';
+import HistoryStaffPage from '../pages/staff/HistoryStaffPage';
+import AdminTransactionsPage from '../pages/admin/AdminTransactionsPage';
+import AdminCouponsPage from "../pages/admin/AdminCouponsPage";
 
 
 function AppRouter() {
@@ -71,6 +74,33 @@ function AppRouter() {
                     element={
                         <ProtectedRoute allowedRoles={['staff', 'admin']}>
                             <MyShiftPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/staff/history"
+                    element={
+                        <ProtectedRoute allowedRoles={['staff', 'admin']}>
+                            <HistoryStaffPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/transactions"
+                    element={
+                        <ProtectedRoute allowedRoles={['admin']}>
+                            <AdminTransactionsPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/admin/promotions"
+                    element={
+                        <ProtectedRoute allowedRoles={['admin']}>
+                            <AdminCouponsPage />
                         </ProtectedRoute>
                     }
                 />

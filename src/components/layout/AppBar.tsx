@@ -10,7 +10,6 @@ interface AppBarProps {
     title?: React.ReactNode;           // tiêu đề (chỉ dùng cho app)
     subtitle?: string;                 // phụ đề (chỉ dùng cho app)
     rightContent?: React.ReactNode;    // thay thế hoàn toàn khu vực bên phải
-    showNotification?: boolean;        // hiển thị icon thông báo (app)
 }
 
 function AppBar({
@@ -18,7 +17,6 @@ function AppBar({
                     title,
                     subtitle,
                     rightContent,
-                    showNotification = false,
                 }: AppBarProps) {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -111,15 +109,6 @@ function AppBar({
             </div>
 
             <div className="appbar__right">
-                {variant === 'app' && showNotification && (
-                    <button className="appbar__icon-btn">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                        </svg>
-                        <span className="dot"></span>
-                    </button>
-                )}
                 {renderRight()}
             </div>
         </header>

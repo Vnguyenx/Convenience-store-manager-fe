@@ -13,7 +13,7 @@ function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
         <div className="app-shell">
             <AdminSidebar />
             <div className="main-area">
-                <AppBar variant="app" title={title} subtitle={subtitle} showNotification />
+                <AppBar variant="app" title={title} subtitle={subtitle} />
                 <main className="main-content">{children}</main>
             </div>
         </div>
