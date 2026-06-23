@@ -11,6 +11,10 @@ import MyShiftPage from '../pages/staff/MyShiftPage';
 import HistoryStaffPage from '../pages/staff/HistoryStaffPage';
 import AdminTransactionsPage from '../pages/admin/AdminTransactionsPage';
 import AdminCouponsPage from "../pages/admin/AdminCouponsPage";
+import AdminEmployeesPage from '../pages/admin/AdminEmployeesPage';
+import AdminShiftsPage    from '../pages/admin/AdminShiftsPage';
+import AdminAttendancePage from '../pages/admin/AdminAttendancePage';
+import AdminPayrollPage   from '../pages/admin/AdminPayrollPage';
 
 
 function AppRouter() {
@@ -104,6 +108,19 @@ function AppRouter() {
                         </ProtectedRoute>
                     }
                 />
+
+                <Route path="/admin/employees" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminEmployeesPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/shifts" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminShiftsPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/attendance" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminAttendancePage /></ProtectedRoute>
+                } />
+                <Route path="/admin/payroll" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminPayrollPage /></ProtectedRoute>
+                } />
 
             </Routes>
         </BrowserRouter>

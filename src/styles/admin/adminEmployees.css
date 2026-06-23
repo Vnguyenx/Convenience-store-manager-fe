@@ -1,0 +1,511 @@
+/* src/styles/admin/adminEmployees.css */
+
+/* ── Variables (match CS Manager design system) ──────────────────────────── */
+:root {
+    --bg-deep:    #162130;
+    --bg-base:    #1e2d3d;
+    --bg-card:    #243447;
+    --bg-raised:  #2b3f55;
+    --border:     #344d66;
+    --border-lt:  #3d5a78;
+    --primary:    #3D6B55;
+    --primary-lt: #4e8a6e;
+    --primary-dim:#2e5141;
+    --text-main:  #e8edf2;
+    --text-sub:   #8fa5bc;
+    --text-dim:   #5d7a96;
+    --danger:     #e05c5c;
+    --danger-dim: #7a2a2a;
+    --warning:    #d4952a;
+    --warning-dim:#6b4a10;
+    --success:    #3aab6e;
+    --radius-sm:  6px;
+    --radius-md:  10px;
+    --radius-lg:  14px;
+    --shadow:     0 4px 20px rgba(0,0,0,.35);
+    --trans:      .18s ease;
+    color-scheme: dark; /* để icon native input[type=date/month/time] hiển thị đúng theme tối */
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-deep);
+}
+.admin-layout__main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* ── Page wrapper ────────────────────────────────────────────────────────── */
+.emp-page {
+    flex: 1;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────────────────── */
+.emp-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 4px;
+    width: fit-content;
+}
+.emp-tab {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--trans);
+}
+.emp-tab svg { stroke: currentColor; fill: none; stroke-width: 2; }
+.emp-tab:hover { color: var(--text-main); background: var(--bg-raised); }
+.emp-tab--active { background: var(--primary); color: #fff; }
+.emp-tab--active:hover { background: var(--primary-lt); }
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────── */
+.emp-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.emp-toolbar__filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.emp-search { min-width: 220px; }
+.emp-month-select { width: auto; min-width: 96px; }
+
+/* ── Summary ─────────────────────────────────────────────────────────────── */
+.emp-summary {
+    color: var(--text-sub);
+    font-size: 13px;
+}
+.emp-summary strong { color: var(--text-main); }
+
+/* ── Shared field styles ─────────────────────────────────────────────────── */
+.sm-field { display: flex; flex-direction: column; gap: 5px; }
+.sm-field__label { font-size: 12.5px; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: .04em; }
+.sm-field__req { color: var(--danger); margin-left: 2px; }
+.sm-field__input {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 13.5px;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color var(--trans);
+    width: 100%;
+    box-sizing: border-box;
+}
+.sm-field__input:focus { border-color: var(--primary-lt); }
+.sm-field__input--err { border-color: var(--danger) !important; }
+.sm-field__input--select { cursor: pointer; }
+.sm-field__error { font-size: 12px; color: var(--danger); margin-top: 2px; }
+.sm-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── Toggle ──────────────────────────────────────────────────────────────── */
+.sm-toggle { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+.sm-toggle__btn {
+    width: 42px; height: 24px;
+    border-radius: 12px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    transition: background var(--trans), border-color var(--trans);
+}
+.sm-toggle__btn--on { background: var(--primary); border-color: var(--primary); }
+.sm-toggle__knob {
+    position: absolute;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    top: 2px; left: 2px;
+    transition: transform var(--trans), background var(--trans);
+}
+.sm-toggle__btn--on .sm-toggle__knob { transform: translateX(18px); background: #fff; }
+.sm-toggle__label { font-size: 13px; color: var(--text-sub); }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.sm-btn {
+    padding: 9px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: var(--trans);
+    white-space: nowrap;
+}
+.sm-btn:disabled { opacity: .5; cursor: not-allowed; }
+.sm-btn--primary { background: var(--primary); color: #fff; }
+.sm-btn--primary:hover:not(:disabled) { background: var(--primary-lt); }
+.sm-btn--ghost { background: transparent; color: var(--text-sub); border: 1px solid var(--border); }
+.sm-btn--ghost:hover:not(:disabled) { background: var(--bg-raised); color: var(--text-main); }
+.sm-btn--danger { background: var(--danger); color: #fff; }
+.sm-btn--danger:hover:not(:disabled) { filter: brightness(1.1); }
+.sm-btn--warning { background: var(--warning); color: #fff; }
+.sm-btn--warning:hover:not(:disabled) { filter: brightness(1.1); }
+
+/* ── Table ───────────────────────────────────────────────────────────────── */
+.sm-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+.sm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+.sm-table th {
+    background: var(--bg-card);
+    color: var(--text-sub);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: 11px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+.sm-table td {
+    padding: 13px 16px;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+.sm-table tbody tr:last-child td { border-bottom: none; }
+.sm-table tbody tr:hover td { background: rgba(61,107,85,.08); }
+.sm-table__row--inactive td { opacity: .55; }
+.sm-table__mono { font-family: monospace; font-size: 13px; color: var(--text-sub); }
+
+/* ── Staff cell ──────────────────────────────────────────────────────────── */
+.sm-staff-cell { display: flex; align-items: center; gap: 10px; }
+.sm-staff-cell__avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--primary-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: var(--primary-lt);
+    flex-shrink: 0;
+}
+.sm-staff-cell__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.sm-staff-cell__name { font-weight: 500; }
+
+/* ── Badges ──────────────────────────────────────────────────────────────── */
+.sm-badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+.sm-badge--admin { background: rgba(212,149,42,.18); color: var(--warning); }
+.sm-badge--staff { background: rgba(61,107,85,.22); color: var(--primary-lt); }
+
+/* ── Status ──────────────────────────────────────────────────────────────── */
+.sm-status {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+.sm-status--active    { background: rgba(58,171,110,.18); color: var(--success); }
+.sm-status--inactive  { background: rgba(224,92,92,.15);  color: var(--danger); }
+.sm-status--scheduled { background: rgba(61,107,85,.2);   color: var(--primary-lt); }
+
+/* ── Action buttons ──────────────────────────────────────────────────────── */
+.sm-actions { display: flex; gap: 6px; align-items: center; }
+.sm-action-btn {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    transition: var(--trans);
+}
+.sm-action-btn svg { stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sm-action-btn:disabled { opacity: .35; cursor: not-allowed; }
+.sm-action-btn--edit { color: var(--text-sub); }
+.sm-action-btn--edit:hover:not(:disabled) { background: var(--bg-raised); color: var(--text-main); border-color: var(--border-lt); }
+.sm-action-btn--key  { color: var(--warning); }
+.sm-action-btn--key:hover:not(:disabled)  { background: rgba(212,149,42,.12); border-color: var(--warning); }
+.sm-action-btn--del  { color: var(--danger); }
+.sm-action-btn--del:hover:not(:disabled)  { background: rgba(224,92,92,.12); border-color: var(--danger); }
+
+/* ── Modal ───────────────────────────────────────────────────────────────── */
+.sm-modal__backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.65);
+    backdrop-filter: blur(3px);
+    z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+}
+.sm-modal__box {
+    background: var(--bg-base);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 520px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+}
+.sm-modal__box--sm { /*max-width: 400px;*/ }
+.sm-modal__header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px 0;
+}
+.sm-modal__title { font-size: 16px; font-weight: 700; color: var(--text-main); margin: 0; }
+.sm-modal__close {
+    background: none; border: none; color: var(--text-dim);
+    font-size: 18px; cursor: pointer; padding: 4px;
+    border-radius: var(--radius-sm); transition: var(--trans);
+}
+.sm-modal__close:hover { color: var(--text-main); background: var(--bg-raised); }
+.sm-modal__body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+.sm-modal__desc { color: var(--text-sub); font-size: 13.5px; line-height: 1.6; margin: 0; }
+.sm-modal__footer {
+    display: flex; justify-content: flex-end; gap: 10px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Toast ───────────────────────────────────────────────────────────────── */
+.sm-toast {
+    position: fixed;
+    top: 20px; right: 24px;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    font-size: 13.5px;
+    font-weight: 500;
+    z-index: 300;
+    animation: toastIn .22s ease;
+    box-shadow: var(--shadow);
+}
+.sm-toast--ok  { background: var(--primary); color: #fff; }
+.sm-toast--err { background: var(--danger);  color: #fff; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* ── Empty / Loading / Error ─────────────────────────────────────────────── */
+.sm-empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; padding: 56px 24px;
+    color: var(--text-dim); font-size: 14px;
+}
+.sm-empty svg { stroke: var(--text-dim); fill: none; stroke-width: 1.5; opacity: .5; }
+.sm-loading { padding: 40px; text-align: center; color: var(--text-sub); font-size: 14px; }
+.sm-error {
+    padding: 16px 20px;
+    background: rgba(224,92,92,.12);
+    border: 1px solid rgba(224,92,92,.3);
+    border-radius: var(--radius-md);
+    color: var(--danger); font-size: 13.5px;
+}
+
+/* ── Assignment panel ────────────────────────────────────────────────────── */
+.sm-assign { display: flex; flex-direction: column; gap: 20px; }
+.sm-assign__form {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+}
+.sm-assign__form-title {
+    font-size: 14px; font-weight: 700; color: var(--text-main);
+    margin: 0 0 16px;
+}
+.sm-assign__form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 180px auto;
+    gap: 14px;
+    align-items: end;
+}
+.sm-assign__form-action { padding-bottom: 0; }
+.sm-assign__filter { display: flex; align-items: center; gap: 12px; }
+.sm-assign__date-filter { width: 180px; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .emp-page { padding: 16px; }
+    .sm-assign__form-grid { grid-template-columns: 1fr 1fr; }
+    .sm-assign__form-action { grid-column: 1 / -1; }
+    .sm-field-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+    .emp-toolbar { flex-direction: column; align-items: stretch; }
+    .emp-toolbar__filters { flex-direction: column; }
+    .emp-search { min-width: unset; }
+    .sm-assign__form-grid { grid-template-columns: 1fr; }
+    .emp-tabs { width: 100%; }
+    .emp-tab { flex: 1; justify-content: center; }
+}
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+.sm-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 4px;
+}
+
+.sm-pagination__info {
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.sm-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sm-pagination__btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text-main);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    transition: background var(--trans), border-color var(--trans), color var(--trans);
+}
+
+.sm-pagination__btn:hover:not(:disabled):not(.sm-pagination__btn--active) {
+    background: var(--bg-card);
+    border-color: var(--border-lt);
+    color: var(--text-main);
+}
+
+.sm-pagination__btn--active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.sm-pagination__btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.sm-pagination__ellipsis {
+    padding: 0 4px;
+    color: var(--text-dim);
+}
+
+.sm-pagination__size {
+    width: auto;
+}
+
+/* ── Bộ lọc dạng lưới (AssignmentPanel) ─────────────────────────────────── */
+.sm-assign__filter--grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    align-items: end;
+    margin: 16px 0;
+}
+
+.sm-assign__filter-action {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* ── Summary cards (Chấm công / Lương) ──────────────────────────────────── */
+.emp-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 12px 0 20px;
+}
+
+.emp-summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    transition: border-color var(--trans);
+}
+
+.emp-summary-card:hover {
+    border-color: var(--border-lt);
+}
+
+.emp-summary-card__label {
+    font-size: 12px;
+    color: var(--text-sub);
+}
+
+.emp-summary-card__value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.emp-summary-table {
+    margin-bottom: 20px;
+}
+
+.emp-toolbar__sep {
+    color: var(--text-dim);
+}
+
+.emp-toolbar__actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ── Input nhỏ trong ô bảng (PayrollTable inline edit) ──────────────────── */
+.sm-field__input--cell {
+    padding: 4px 6px;
+    height: 30px;
+    min-width: 90px;
+}
+
+.sm-btn--xs {
+    padding: 4px 10px;
+    font-size: 12px;
+    height: 28px;
+}
+
+/* ── Responsive bổ sung cho Pagination / Summary cards ───────────────────── */
+@media (max-width: 600px) {
+    .sm-pagination { flex-direction: column; align-items: stretch; }
+    .sm-pagination__controls { justify-content: center; flex-wrap: wrap; }
+    .emp-toolbar__actions { width: 100%; }
+    .emp-toolbar__actions .sm-btn { flex: 1; }
+}
