@@ -3,6 +3,10 @@ import authReducer from './authSlice';
 import productReducer from './productSlice';
 import couponReducer from './couponSlice';
 import staffReducer from './staffSlice';
+import myShiftReducer from './myShiftSlice';
+import supplierReducer from './supplierSlice';
+import inventoryReducer from './inventorySlice';
+import purchaseOrderReducer from './purchaseOrderSlice';
 
 
 export const store = configureStore({
@@ -11,7 +15,10 @@ export const store = configureStore({
         product: productReducer,
         coupon: couponReducer,
         staff: staffReducer,
-
+        myShift: myShiftReducer,
+        suppliers: supplierReducer,
+        inventory: inventoryReducer,
+        purchaseOrders: purchaseOrderReducer,
     },
 });
 

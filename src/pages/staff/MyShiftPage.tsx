@@ -3,6 +3,10 @@ import React from 'react';
 import AppBar from '../../components/layout/AppBar';
 import Panel from '../../components/common/Panel';
 import StaffTabs from '../../components/staff/StaffTabs';
+import AttendanceHistory from "../../components/staff/shift/AttendanceHistory";
+import ShiftCard from "../../components/staff/shift/ShiftCard";
+import '../../styles/pos/myShift.css';
+
 
 const MyShiftPage: React.FC = () => {
     const titleNode = (
@@ -28,9 +32,11 @@ const MyShiftPage: React.FC = () => {
                 <AppBar variant="app" title={titleNode} />
                 <main className="main-content" style={{ padding: 'var(--sp-6)' }}>
                     <Panel>
-                        <div style={{ padding: 'var(--sp-4)', textAlign: 'center' }}>
-                            <h3>Ca làm của tôi</h3>
-                            <p style={{ color: 'var(--color-text-muted)' }}>Chức năng đang phát triển...</p>
+                        <div className="my-shift-page">
+                            <div className="my-shift-page__container">
+                                <ShiftCard/>
+                                <AttendanceHistory/>
+                            </div>
                         </div>
                     </Panel>
                 </main>

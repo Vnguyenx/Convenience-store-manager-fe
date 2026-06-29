@@ -131,7 +131,7 @@ const AdminCouponsPage: React.FC = () => {
                 />
 
                 <main style={{ flex: 1, overflowY: 'auto' }}>
-                    <div className="coupons-page">
+                    <div className="coupons-page" style={{backgroundColor: '#162130'}}>
 
                         {/* Header */}
                         <div className="coupons-header">

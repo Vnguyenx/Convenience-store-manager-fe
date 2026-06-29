@@ -1,0 +1,203 @@
+/* src/styles/staff/myShift.css */
+.my-shift-page {
+    padding: 20px;
+    background: #f5f7fa;
+    min-height: 100vh;
+}
+
+.my-shift-page__container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ShiftCard */
+.shift-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.shift-card__title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.shift-card__error {
+    color: #d32f2f;
+    background: #ffebee;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.shift-card__status {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.shift-card__info {
+    font-size: 1.1rem;
+}
+
+.shift-card__checked-in {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.shift-card__not-checked {
+    color: #f57c00;
+    font-weight: 600;
+}
+
+.shift-card__complete {
+    background: #e8f5e9;
+    padding: 12px;
+    border-radius: 6px;
+    border-left: 4px solid #2e7d32;
+}
+
+.shift-card__note {
+    margin-top: 8px;
+}
+
+.shift-card__note textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+.shift-card__note-count {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+.shift-card__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.shift-card__btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.shift-card__btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.shift-card__btn--checkin {
+    background: #1976d2;
+    color: white;
+}
+.shift-card__btn--checkin:hover:not(:disabled) {
+    background: #1565c0;
+}
+
+.shift-card__btn--checkout {
+    background: #f57c00;
+    color: white;
+}
+.shift-card__btn--checkout:hover:not(:disabled) {
+    background: #e65100;
+}
+
+/* AttendanceHistory */
+.attendance-history {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-history__title {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.attendance-history__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.filter-group input[type="date"] {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.filter-btn:hover {
+    background: #1565c0;
+}
+
+.attendance-history__summary {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.attendance-history__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-history__table th,
+.attendance-history__table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.attendance-history__table th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+.attendance-history__table .note-cell {
+    max-width: 200px;
+    word-break: break-word;
+}
+
+.loading, .empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}

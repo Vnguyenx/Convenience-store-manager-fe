@@ -15,7 +15,9 @@ import AdminEmployeesPage from '../pages/admin/AdminEmployeesPage';
 import AdminShiftsPage    from '../pages/admin/AdminShiftsPage';
 import AdminAttendancePage from '../pages/admin/AdminAttendancePage';
 import AdminPayrollPage   from '../pages/admin/AdminPayrollPage';
-
+import AdminSuppliersPage from '../pages/admin/AdminSuppliersPage';
+import AdminStockCheckPage from '../pages/admin/AdminStockCheckPage';
+import AdminStockEntryPage from '../pages/admin/AdminStockEntryPage';
 
 function AppRouter() {
     return (
@@ -120,6 +122,15 @@ function AppRouter() {
                 } />
                 <Route path="/admin/payroll" element={
                     <ProtectedRoute allowedRoles={['admin']}><AdminPayrollPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/suppliers" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminSuppliersPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/inventory" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminStockCheckPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/imports" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminStockEntryPage /></ProtectedRoute>
                 } />
 
             </Routes>

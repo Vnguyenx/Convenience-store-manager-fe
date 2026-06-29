@@ -22,8 +22,9 @@ const Button: React.FC<ButtonProps> = ({
 
     return (
         <button
+            type="button"  // default "button" để tránh submit form và reload trang
             className={`btn ${variantClass} ${sizeClass} ${widthClass} ${className}`}
-            {...props}
+            {...props}     // type có thể bị override bởi caller nếu cần type="submit"
         >
             {children}
         </button>
