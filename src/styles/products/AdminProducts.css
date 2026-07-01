@@ -71,7 +71,7 @@
 /* src/pages/admin/AdminProducts.css */
 .product-list__toolbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     gap: var(--sp-3);

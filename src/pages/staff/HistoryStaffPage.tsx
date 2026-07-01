@@ -79,7 +79,24 @@ const HistoryStaffPage: React.FC = () => {
         setIsDetailOpen(true);
     };
 
+    const isOrderToday = (createdAt: string): boolean => {
+        if (!createdAt) return false;
+        const orderDate = new Date(createdAt);
+        if (isNaN(orderDate.getTime())) return false;
+
+        const now = new Date();
+        return (
+            orderDate.getFullYear() === now.getFullYear() &&
+            orderDate.getMonth() === now.getMonth() &&
+            orderDate.getDate() === now.getDate()
+        );
+    };
+
     const openCancelModal = (order: SavedOrder) => {
+        // Chặn huỷ đơn nếu đơn không được tạo trong ngày hôm nay
+        if (!isOrderToday(order.createdAt)) {
+            return;
+        }
         setCancelTarget(order);
         setCancelReason('');
         setCancelError('');

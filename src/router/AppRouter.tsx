@@ -18,6 +18,7 @@ import AdminPayrollPage   from '../pages/admin/AdminPayrollPage';
 import AdminSuppliersPage from '../pages/admin/AdminSuppliersPage';
 import AdminStockCheckPage from '../pages/admin/AdminStockCheckPage';
 import AdminStockEntryPage from '../pages/admin/AdminStockEntryPage';
+import AdminRevenuePage from "../pages/admin/AdminRevenuePage";
 
 function AppRouter() {
     return (
@@ -131,6 +132,9 @@ function AppRouter() {
                 } />
                 <Route path="/admin/imports" element={
                     <ProtectedRoute allowedRoles={['admin']}><AdminStockEntryPage /></ProtectedRoute>
+                } />
+                <Route path="/admin/revenue" element={
+                    <ProtectedRoute allowedRoles={['admin']}><AdminRevenuePage /></ProtectedRoute>
                 } />
 
             </Routes>

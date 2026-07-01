@@ -6,6 +6,21 @@ import Button from '../../../components/common/Button';
 import { SavedOrder } from '../../../services/orderService';
 import { PAYMENT_LABEL, STATUS_LABEL, formatCurrency, formatDateTime } from '../../../utils/historyUtils';
 
+// Chỉ cho phép huỷ đơn nếu đơn được tạo trong ngày hôm nay.
+// Đơn của những ngày trước đó chỉ được xem, không được huỷ.
+const isOrderToday = (createdAt: string): boolean => {
+    if (!createdAt) return false;
+    const orderDate = new Date(createdAt);
+    if (isNaN(orderDate.getTime())) return false;
+
+    const now = new Date();
+    return (
+        orderDate.getFullYear() === now.getFullYear() &&
+        orderDate.getMonth() === now.getMonth() &&
+        orderDate.getDate() === now.getDate()
+    );
+};
+
 interface HistoryTableProps {
     orders: SavedOrder[];
     loading: boolean;
@@ -56,18 +71,32 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
         {
             key: 'actions',
             label: 'Hành động',
-            render: (_: any, row: SavedOrder) => (
-                <div className="history-table__actions">
-                    <Button size="sm" variant="secondary" onClick={() => onView(row)}>
-                        Xem
-                    </Button>
-                    {row.status !== 'cancelled' && (
-                        <Button size="sm" variant="danger" onClick={() => onCancel(row)}>
-                            Huỷ đơn
+            render: (_: any, row: SavedOrder) => {
+                const canCancel = row.status !== 'cancelled' && isOrderToday(row.createdAt);
+
+                return (
+                    <div className="history-table__actions">
+                        <Button size="sm" variant="secondary" onClick={() => onView(row)}>
+                            Xem
                         </Button>
-                    )}
-                </div>
-            ),
+                        {row.status !== 'cancelled' && (
+                            <Button
+                                size="sm"
+                                variant="danger"
+                                onClick={() => onCancel(row)}
+                                disabled={!canCancel}
+                                title={
+                                    canCancel
+                                        ? undefined
+                                        : 'Chỉ có thể huỷ đơn trong ngày, đơn của ngày trước không thể huỷ'
+                                }
+                            >
+                                Huỷ đơn
+                            </Button>
+                        )}
+                    </div>
+                );
+            },
         },
     ];
 

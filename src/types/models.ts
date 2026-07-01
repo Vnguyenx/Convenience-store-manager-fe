@@ -26,6 +26,18 @@ export interface Product {
     imageURL: string;
     createdAt?: string;
     updatedAt?: string;
+    // ✅ MỚI: các field BE tự tính (enrichWithExpiryInfo), không lưu trong Firestore.
+    // Optional vì các nơi khác trong code tạo Product object (ví dụ payload tạo/sửa) không có field này.
+    effectivePrice?: number;
+    expiryDiscountPercent?: number;
+    daysLeft?: number | null;
+    isExpired?: boolean;
+}
+
+// ✅ MỚI: cấu hình 1 tier giảm giá theo số ngày còn lại đến hết hạn
+export interface ExpiryDiscountTier {
+    maxDays: number;
+    percent: number;
 }
 // src/types/models.ts (bổ sung)
 export interface Supplier {

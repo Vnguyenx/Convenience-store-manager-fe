@@ -93,7 +93,7 @@ export const fetchAllStaff = createAsyncThunk(
 
 export const createStaff = createAsyncThunk(
     'staff/create',
-    async (data: { email: string; password: string; fullName: string; phone: string; role: string }, { rejectWithValue }) => {
+    async (data: { email: string; password: string; fullName: string; phone: string; role: string; tier?: string }, { rejectWithValue }) => {
         try {
             return await staffService.createStaff(data);
         } catch (e: any) {

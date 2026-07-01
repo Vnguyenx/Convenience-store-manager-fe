@@ -3,12 +3,16 @@
 
 // ── Staff ─────────────────────────────────────────────────────────────────────
 
+// FIX: xếp loại nhân viên, quyết định mức lương/giờ mặc định (xem PayrollConfig)
+export type StaffTier = 'excellent' | 'normal';
+
 export interface Staff {
     uid: string;
     email: string;
     fullName: string;
     phone: string;
     role: 'admin' | 'staff';
+    tier: StaffTier; // FIX
     isActive: boolean;
     photoURL: string;
     createdAt: string;
@@ -21,6 +25,7 @@ export interface StaffFormData {
     fullName: string;
     phone: string;
     role: 'admin' | 'staff';
+    tier: StaffTier; // FIX
     isActive: boolean;
 }
 
@@ -109,7 +114,7 @@ export interface Payroll {
 }
 
 export interface PayrollConfig {
-    id: string; // staffUid hoặc "default"
+    id: string; // "default" | "tier_excellent" | "tier_normal" | staffUid  // FIX
     staffUid: string;
     hourlyRate: number;
     updatedAt: string;

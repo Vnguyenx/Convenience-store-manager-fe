@@ -8,7 +8,9 @@
     min-height: 100dvh;
     background: var(--color-bg);
 }
-
+.mt-20 {
+    margin-top: 20px;
+}
 .main-area {
     flex: 1;
     display: flex;

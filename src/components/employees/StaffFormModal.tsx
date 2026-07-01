@@ -14,6 +14,7 @@ interface FormData {
     fullName: string;
     phone: string;
     role: 'admin' | 'staff';
+    tier: 'excellent' | 'normal'; // FIX
     isActive: boolean;
 }
 
@@ -62,6 +63,7 @@ const StaffFormModal: React.FC<Props> = ({ mode, initial, loading, onSubmit, onC
         fullName: initial?.fullName || '',
         phone: initial?.phone || '',
         role: initial?.role || 'staff',
+        tier: initial?.tier || 'normal', // FIX
         isActive: initial?.isActive ?? true,
     });
     const [errors, setErrors] = useState<FormErrors>({});
@@ -69,7 +71,7 @@ const StaffFormModal: React.FC<Props> = ({ mode, initial, loading, onSubmit, onC
 
     useEffect(() => {
         if (initial) {
-            setForm({ email: initial.email, password: '', fullName: initial.fullName, phone: initial.phone || '', role: initial.role, isActive: initial.isActive });
+            setForm({ email: initial.email, password: '', fullName: initial.fullName, phone: initial.phone || '', role: initial.role, tier: initial.tier || 'normal', isActive: initial.isActive }); // FIX
         }
     }, [initial]);
 
@@ -164,7 +166,7 @@ const StaffFormModal: React.FC<Props> = ({ mode, initial, loading, onSubmit, onC
                         {errors.phone && <span className="sm-field__error">{errors.phone}</span>}
                     </div>
 
-                    {/* Row: Role + isActive */}
+                    {/* Row: Role + Tier */}
                     <div className="sm-field-row">
                         <div className="sm-field">
                             <label className="sm-field__label">Vai trò <span className="sm-field__req">*</span></label>
@@ -178,7 +180,23 @@ const StaffFormModal: React.FC<Props> = ({ mode, initial, loading, onSubmit, onC
                             </select>
                         </div>
 
-                        {isEdit && (
+                        {/* FIX: xếp loại nhân viên — quyết định mức lương/giờ mặc định */}
+                        <div className="sm-field">
+                            <label className="sm-field__label">Xếp loại</label>
+                            <select
+                                className="sm-field__input sm-field__input--select"
+                                value={form.tier}
+                                onChange={e => set('tier', e.target.value)}
+                            >
+                                <option value="normal">Nhân viên thường</option>
+                                <option value="excellent">Nhân viên ưu tú</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Row: isActive */}
+                    {isEdit && (
+                        <div className="sm-field-row">
                             <div className="sm-field">
                                 <label className="sm-field__label">Trạng thái</label>
                                 <div className="sm-toggle">
@@ -194,8 +212,8 @@ const StaffFormModal: React.FC<Props> = ({ mode, initial, loading, onSubmit, onC
                                     </span>
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
 
                 <div className="sm-modal__footer">

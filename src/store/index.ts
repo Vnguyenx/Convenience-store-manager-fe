@@ -7,6 +7,9 @@ import myShiftReducer from './myShiftSlice';
 import supplierReducer from './supplierSlice';
 import inventoryReducer from './inventorySlice';
 import purchaseOrderReducer from './purchaseOrderSlice';
+import reportReducer from './reportSlice';
+import settingsReducer from './settingsSlice';
+
 
 
 export const store = configureStore({
@@ -19,6 +22,9 @@ export const store = configureStore({
         suppliers: supplierReducer,
         inventory: inventoryReducer,
         purchaseOrders: purchaseOrderReducer,
+        report: reportReducer,
+        settings: settingsReducer,
+
     },
 });
 

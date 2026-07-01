@@ -37,6 +37,14 @@ const PayrollConfigModal: React.FC<Props> = ({ configs, staffList, loading, onSu
         onSubmit(target, n);
     };
 
+    // FIX: nhãn hiển thị cho từng loại đối tượng config (default / tier_xxx / staffUid)
+    const targetLabel = (id: string): string => {
+        if (id === 'default') return 'Mặc định';
+        if (id === 'tier_excellent') return 'Nhân viên ưu tú';
+        if (id === 'tier_normal') return 'Nhân viên thường';
+        return staffList.find(s => s.uid === id)?.fullName || id;
+    };
+
     return (
         <div className="sm-modal__backdrop" onClick={onClose}>
             <div className="sm-modal__box sm-modal__box--sm" onClick={e => e.stopPropagation()}>
@@ -47,7 +55,8 @@ const PayrollConfigModal: React.FC<Props> = ({ configs, staffList, loading, onSu
 
                 <div className="sm-modal__body">
                     <p className="sm-modal__desc">
-                        Đặt mức lương/giờ mặc định, hoặc riêng cho từng nhân viên (sẽ ưu tiên hơn mức mặc định).
+                        Đặt mức lương/giờ mặc định, theo xếp loại (ưu tú/thường), hoặc riêng cho từng nhân viên.
+                        Thứ tự ưu tiên: <strong>nhân viên riêng</strong> &gt; <strong>xếp loại</strong> &gt; <strong>mặc định</strong>.
                     </p>
 
                     <div className="sm-field">
@@ -58,8 +67,10 @@ const PayrollConfigModal: React.FC<Props> = ({ configs, staffList, loading, onSu
                             onChange={e => handleTargetChange(e.target.value)}
                         >
                             <option value="default">Mức mặc định (tất cả nhân viên)</option>
+                            <option value="tier_excellent">Nhân viên ưu tú</option>
+                            <option value="tier_normal">Nhân viên thường</option>
                             {staffList.filter(s => s.role === 'staff').map(s => (
-                                <option key={s.uid} value={s.uid}>{s.fullName}</option>
+                                <option key={s.uid} value={s.uid}>{s.fullName} (riêng)</option>
                             ))}
                         </select>
                     </div>
@@ -87,7 +98,7 @@ const PayrollConfigModal: React.FC<Props> = ({ configs, staffList, loading, onSu
                                 <tbody>
                                 {configs.map(c => (
                                     <tr key={c.id}>
-                                        <td>{c.id === 'default' ? 'Mặc định' : (staffList.find(s => s.uid === c.id)?.fullName || c.id)}</td>
+                                        <td>{targetLabel(c.id)}</td>
                                         <td className="sm-table__mono">{c.hourlyRate.toLocaleString('vi-VN')}đ</td>
                                     </tr>
                                 ))}

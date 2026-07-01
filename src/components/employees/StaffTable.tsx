@@ -16,6 +16,14 @@ const roleLabel = (role: string) =>
         <span className="sm-badge sm-badge--staff">Thu ngân</span>
     );
 
+// FIX: badge xếp loại nhân viên
+const tierLabel = (tier: string) =>
+    tier === 'excellent' ? (
+        <span className="sm-badge sm-badge--excellent">Ưu tú</span>
+    ) : (
+        <span className="sm-badge sm-badge--normal">Thường</span>
+    );
+
 const StaffTable: React.FC<Props> = ({ staff, onEdit, onDelete, onResetPassword }) => {
     if (staff.length === 0) {
         return (
@@ -35,6 +43,7 @@ const StaffTable: React.FC<Props> = ({ staff, onEdit, onDelete, onResetPassword 
                     <th>Email</th>
                     <th>Điện thoại</th>
                     <th>Vai trò</th>
+                    <th>Xếp loại</th>
                     <th>Trạng thái</th>
                     <th>Thao tác</th>
                 </tr>
@@ -56,6 +65,7 @@ const StaffTable: React.FC<Props> = ({ staff, onEdit, onDelete, onResetPassword 
                         <td className="sm-table__mono">{s.email}</td>
                         <td>{s.phone || '—'}</td>
                         <td>{roleLabel(s.role)}</td>
+                        <td>{tierLabel(s.tier)}</td>
                         <td>
                             {s.isActive
                                 ? <span className="sm-status sm-status--active">Hoạt động</span>

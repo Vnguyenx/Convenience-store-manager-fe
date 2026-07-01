@@ -40,6 +40,26 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, onEdit, onDelete,
                 <span className={val <= 0 ? 'text-danger' : ''}>{val}</span>
             ),
         },
+        // ✅ MỚI: cột trạng thái hạn sử dụng — dựa vào field isExpired/daysLeft/expiryDiscountPercent
+        // do BE tự tính (enrichWithExpiryInfo), không sửa logic các cột khác.
+        {
+            key: 'expiryStatus',
+            label: 'Hạn sử dụng',
+            render: (_: any, row: Product) => {
+                if (!row.expiryDate) return <span style={{ color: 'var(--color-text-muted)' }}>—</span>;
+                if (row.isExpired) {
+                    return <span className="badge badge-danger">Đã hết hạn</span>;
+                }
+                if (row.expiryDiscountPercent && row.expiryDiscountPercent > 0) {
+                    return (
+                        <span className="badge badge-warning">
+                            Còn {row.daysLeft} ngày · -{row.expiryDiscountPercent}%
+                        </span>
+                    );
+                }
+                return <span style={{ color: 'var(--color-text-muted)' }}>Còn {row.daysLeft} ngày</span>;
+            },
+        },
         {
             key: 'actions',
             label: 'Thao tác',

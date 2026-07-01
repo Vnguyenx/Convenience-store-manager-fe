@@ -46,7 +46,7 @@ export const staffService = {
     },
 
     async createStaff(body: {
-        email: string; password: string; fullName: string; phone: string; role: string;
+        email: string; password: string; fullName: string; phone: string; role: string; tier?: string; // FIX
     }): Promise<{ message: string; user: Staff }> {
         return apiFetch(`/admin/staff`, { method: 'POST', body: JSON.stringify(body) });
     },

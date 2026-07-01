@@ -227,6 +227,8 @@
 }
 .sm-badge--admin { background: rgba(212,149,42,.18); color: var(--warning); }
 .sm-badge--staff { background: rgba(61,107,85,.22); color: var(--primary-lt); }
+.sm-badge--excellent { background: rgba(58,171,110,.18); color: var(--success); }
+.sm-badge--normal { background: rgba(93,122,150,.18); color: var(--text-sub); }
 
 /* ── Status ──────────────────────────────────────────────────────────────── */
 .sm-status {

@@ -16,11 +16,14 @@ interface CartPanelProps {
     onApplyCoupon: (code: string) => void;
     onRemoveCoupon: () => void;
     onCheckout: () => void;
+    checkoutDisabled?: boolean; // FIX: khóa nút thanh toán (VD: chưa check-in ca)
+    checkoutDisabledReason?: string; // FIX: lý do hiển thị dạng tooltip
 }
 
 const CartPanel: React.FC<CartPanelProps> = ({
                                                  orderCode, items, subtotal, coupon, couponDiscount, couponError, total,
                                                  onChangeQty, onSetQty, onRemove, onApplyCoupon, onRemoveCoupon, onCheckout,
+                                                 checkoutDisabled, checkoutDisabledReason,
                                              }) => {
     const [couponInput, setCouponInput] = useState('');
 
@@ -149,7 +152,8 @@ const CartPanel: React.FC<CartPanelProps> = ({
                 <button
                     className="btn btn-primary btn-full pos-cart__pay-btn"
                     onClick={onCheckout}
-                    disabled={items.length === 0}
+                    disabled={items.length === 0 || checkoutDisabled}
+                    title={checkoutDisabled ? checkoutDisabledReason : undefined}
                 >
                     Thanh toán
                 </button>

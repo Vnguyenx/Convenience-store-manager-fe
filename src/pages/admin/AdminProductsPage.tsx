@@ -4,6 +4,7 @@ import AdminLayout from '../../components/layout/AdminLayout';
 import Panel from '../../components/common/Panel';
 import ProductTable from '../../components/products/ProductTable';
 import ProductFormModal from '../../components/products/ProductFormModal';
+import ExpiryDiscountSettingsModal from '../../components/settings/ExpiryDiscountSettingsModal';
 import Button from '../../components/common/Button';
 import SearchBar from '../../components/common/SearchBar';
 import Pagination from '../../components/common/Pagination';
@@ -15,6 +16,8 @@ const AdminProductsPage: React.FC = () => {
     const { products, loading, error, handleDelete, clearErrors, refetch } = useProducts();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+    // ✅ MỚI: state riêng cho modal cấu hình giảm giá cận date, không đụng state modal sản phẩm cũ
+    const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
@@ -86,6 +89,10 @@ const AdminProductsPage: React.FC = () => {
                     <Button variant="primary" onClick={handleAdd}>
                         + Thêm sản phẩm
                     </Button>
+                    {/* ✅ MỚI: nút mở cấu hình giảm giá cận date, không ảnh hưởng nút/logic cũ */}
+                    <Button variant="secondary" onClick={() => setIsSettingsModalOpen(true)}>
+                        ⚙ Giảm giá cận date
+                    </Button>
                     <div className="product-list__search">
                         <SearchBar
                             placeholder="Tìm theo mã hoặc tên..."
@@ -120,6 +127,12 @@ const AdminProductsPage: React.FC = () => {
                 onClose={handleModalClose}
                 onSuccess={handleModalSuccess}
                 initialData={editingProduct}
+            />
+
+            {/* ✅ MỚI: modal cấu hình tier giảm giá cận date */}
+            <ExpiryDiscountSettingsModal
+                isOpen={isSettingsModalOpen}
+                onClose={() => setIsSettingsModalOpen(false)}
             />
         </AdminLayout>
     );
